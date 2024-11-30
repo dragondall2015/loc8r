@@ -1,0 +1,35 @@
+extends layout
+
+include _includes/sharedHTMLfunctions
+
+block content
+  .row.banner
+    .col-12
+      h1= pageHeader.title
+        small &nbsp;#{pageHeader.strapLine}
+
+  .row
+    .col-12.col-md-8
+      .error= message
+      
+      app-home-list
+      //- 아래 내용 지우면 3000번 안됨???
+      each location in locations
+        .card
+          .card-block
+            h4
+              a(href=`/location/${location._id}`)= location.name
+              +outputRating(location.rating)
+              span.badge.badge-pill.badge-default.float-right= location.distance
+            p.address= location.address
+            .facilities
+              each facility in location.facilities
+                span.badge.badge-warning= facility
+
+
+    .col-12.col-md-4
+      p.lead= sidebar
+  block scripts 
+    script(src='/build/main.d27b30230d5834a6.js')
+    script(src='/build/polyfills.05600847d04151be.js')
+    script(src='/build/runtime.e4985b6c090739db.js')
